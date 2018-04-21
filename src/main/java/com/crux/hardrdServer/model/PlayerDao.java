@@ -14,14 +14,13 @@ import com.crux.hardrdServer.resource.entity.PlayerResource;
 import com.crux.hardrdServer.resource.entity.Updates;
 
 @Component
-public class PlayerDao {
+public class PlayerDao implements IPlayerDao{
 	@Autowired
 	SessionFactory sessionFactory;
 	Transaction tx = null;
 	public int updateOrSave(Updates updates) {
 		try (Session session = sessionFactory.openSession()) {
 			tx  = session.beginTransaction();
-			
 			Player player = new Player();
 			player.setPlayerId(updates.getPlayerId());
 			player.setPlayerPosX(updates.getPlayerPosX());
@@ -50,11 +49,8 @@ public class PlayerDao {
 		List<PlayerResource> prl = new ArrayList<>();
 		try (Session session = sessionFactory.openSession()) {
 			tx  = session.beginTransaction();
-
-			PlayerResource player = new PlayerResource();
-
 			@SuppressWarnings("unchecked")
-			List<Player> pl = session.createQuery("from Player").list();
+			List<Player> pl = session.createQuery("from Player").setCacheable(true).list();
 			for(Player p: pl)
 			{
 				PlayerResource pr = new PlayerResource();
@@ -78,5 +74,34 @@ public class PlayerDao {
 		}
 
 		return prl;
+	}
+	
+	public PlayerResource getPlayer(String id) {
+		PlayerResource pr = new PlayerResource();
+		try (Session session = sessionFactory.openSession()) {
+			tx = session.beginTransaction();
+			Player p = session.get(Player.class, id);
+			if(p == null)
+			{
+	//			throw new TehnicalException("000", "No player in database");
+			}
+			
+			
+			pr.setPosX(p.getPlayerPosX());
+			pr.setPosY(p.getPlayerPosY());
+			pr.setPosZ(p.getPlayerPosZ());
+			pr.setRotX(p.getPlayerRotX());
+			pr.setRotY(p.getPlayerRotY());
+			pr.setRotZ(p.getPlayerRotZ());
+			pr.setName(p.getPlayerId());
+			pr.setCurrentSpeed(p.getCurrentSpeed());
+			tx.commit();
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+
+		return pr;
 	}
 }

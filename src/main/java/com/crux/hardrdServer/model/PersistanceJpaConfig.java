@@ -55,8 +55,8 @@ public class PersistanceJpaConfig {
 	//	properties.setProperty("hibernate.cache.use_query_cache", "false");
 		
 	//	properties.setProperty("hibernate.cache.use_query_cache", "false");
-		properties.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
-		properties.setProperty("net.sf.ehcache.configurationResourceName", "/ehCache.xml");
+	//	properties.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
+	//	properties.setProperty("net.sf.ehcache.configurationResourceName", "/ehCache.xml");
 		//<prop key="hibernate.cache.use_second_level_cache">true</prop>
 		//<prop key="hibernate.cache.use_query_cache">true</prop>
 		//<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>

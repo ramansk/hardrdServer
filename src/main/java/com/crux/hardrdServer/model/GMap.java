@@ -9,23 +9,24 @@ import javax.imageio.ImageIO;
 
 public class GMap
 {
-	
+
+
 	private int tileSize;
 
 	//tileset
 	private BufferedImage tileset;
 	private int numTilesAcross;
-	public List<Map> getTiles() {
+	public List<MapInternal> getTiles() {
 		return tiles;
 	}
 
-	public void setTiles(List<Map> tiles) {
+	public void setTiles(List<MapInternal> tiles) {
 		this.tiles = tiles;
 	}
 
 
 	private int numTilesAlong;
-	private List<Map> tiles = new ArrayList<>();
+	private List<MapInternal> tiles = new ArrayList<>();
 
 	
 	public GMap(int tileSize)
@@ -56,7 +57,7 @@ public class GMap
 						tileSize,
 						tileSize
 				);
-				tiles.add(new Map(subImage, row, col));
+				tiles.add(new MapInternal(subImage, row, col));
 				}
 			}
 		}

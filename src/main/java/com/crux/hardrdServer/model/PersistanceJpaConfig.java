@@ -21,6 +21,7 @@ public class PersistanceJpaConfig {
 		sessionFactory.setPackagesToScan(new String[] { "com.crux.hardrdServer.model" });
 		sessionFactory.setHibernateProperties(additionalProperties());
 
+
 		return sessionFactory;
 	}
 
@@ -50,6 +51,7 @@ public class PersistanceJpaConfig {
 		properties.setProperty("hibernate.show_sql", "true");
 		properties.setProperty("hibernate.format_sql", "false");
 		properties.setProperty("hibernate.use_sql_comments", "false");
+		properties.setProperty("hibernate.connection.autocommit", "true");
 		
 	//	properties.setProperty("hibernate.cache.use_second_level_cache", "false");
 	//	properties.setProperty("hibernate.cache.use_query_cache", "false");

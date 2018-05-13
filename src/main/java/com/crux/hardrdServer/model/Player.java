@@ -1,9 +1,14 @@
 package com.crux.hardrdServer.model;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
+@DynamicUpdate
 public class Player {
 	@Id
 	private String playerId;
@@ -14,6 +19,18 @@ public class Player {
 	private Float playerRotY;
 	private Float playerRotZ;
 	private Float currentSpeed;
+
+	public Userr getUserr() {
+		return userr;
+	}
+
+	public void setUserr(Userr userr) {
+		this.userr = userr;
+	}
+
+	@ManyToOne
+	@JoinColumn(name="name", nullable=false, updatable = false)
+	private Userr userr;
 
 	public Float getCurrentSpeed() {
 		return currentSpeed;

@@ -18,18 +18,10 @@ public class PlayerDao implements IPlayerDao{
 	@Autowired
 	SessionFactory sessionFactory;
 	Transaction tx = null;
-	public int updateOrSave(Updates updates) {
+	public int updateOrSave(Player player) {
 		try (Session session = sessionFactory.openSession()) {
 			tx  = session.beginTransaction();
-			Player player = new Player();
-			player.setPlayerId(updates.getPlayerId());
-			player.setPlayerPosX(updates.getPlayerPosX());
-			player.setPlayerPosY(updates.getPlayerPosY());
-			player.setPlayerPosZ(updates.getPlayerPosZ());
-			player.setPlayerRotX(updates.getPlayerRotX());
-			player.setPlayerRotY(updates.getPlayerRotY());
-			player.setPlayerRotZ(updates.getPlayerRotZ());
-			player.setCurrentSpeed(updates.getCurrentSpeed());
+
 			session.saveOrUpdate(player);
 			
 			tx.commit();
@@ -48,7 +40,7 @@ public class PlayerDao implements IPlayerDao{
 	{
 		List<PlayerResource> prl = new ArrayList<>();
 		try (Session session = sessionFactory.openSession()) {
-			tx  = session.beginTransaction();
+			//tx  = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Player> pl = session.createQuery("from Player").setCacheable(true).list();
 			for(Player p: pl)
@@ -67,7 +59,7 @@ public class PlayerDao implements IPlayerDao{
 			}
 
 
-			tx.commit();
+			//tx.commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			tx.rollback();
